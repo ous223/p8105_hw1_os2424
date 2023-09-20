@@ -42,7 +42,7 @@ The mean temperature is 39.58212F.
 ggplot(early_january_weather, 
        aes(x = time_hour, y = temp, color = humid)) +
   geom_point() +
-  labs(title = "scatterplot of temp vs. time_hour",
+  labs(title = "scatterplot of temperature vs. time_hour",
        x = "date and hour",
        y = "temperature F")
 ```
