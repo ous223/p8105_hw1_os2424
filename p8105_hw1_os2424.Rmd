@@ -37,7 +37,7 @@ time_hour is date and hour of the recording as a POSIXct date;
 The number of rows are 358, and the number of columns are 15.
 The mean temperature is 39.58212F.
 
-```{R}
+```{r}
 # make scatter plot of temp vs. time_hour
 ggplot(early_january_weather, 
        aes(x = time_hour, y = temp, color = humid)) +
@@ -48,8 +48,36 @@ ggplot(early_january_weather,
 ```
 There is a pattern that humidity increases as temperature decreases. Temperature raises during daytime and drops during nighttime. 
 
-```{R}
+```{r}
 ggsave("P1 Scatter plot.png", plot = last_plot())
 ```
 
 # Probleam 2
+```{r}
+# create a data frame
+set.seed(5)
+random_sample <- rnorm(10)
+df <- tibble(vec_random = random_sample, 
+       vec_logical = random_sample > 0,
+       vec_character = letters[1:10],
+       vec_factor = factor(sample(c(1, 2, 3), size = 10, replace = TRUE)))
+
+```
+
+```{r}
+# take mean of random sample
+mean(pull(df, vec_random))
+# take mean of logical vector
+mean(pull(df, vec_logical))
+# take mean of character vector
+mean(pull(df, vec_character))
+# take mean of factor vector
+mean(pull(df, vec_factor))
+```
+
+```{r}
+num_logic = as.numeric(pull(df, vec_logical))
+num_character = as.numeric(pull(df, vec_character))
+num_factor = as.numeric(pull(df, vec_factor))
+```
+Using `as.numeric` function change the type of certain variable to numeric variables. For logical variables, True turns to 1 and False turns to 0. For character variables, they cannot be converted to numeric variables as there is a warning when `as.numeric` applied. For factor variables, levels can be converted to numbers corresponding to the order of the level. 
