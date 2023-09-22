@@ -23,30 +23,29 @@ ncol(early_january_weather)
 # find mean temp
 mean(early_january_weather$temp)
 ```
-The variables in the dataset are:
-origin is weather station;
-year, month, day, hour are time of recording;
-temp, dewp are temperature and dewpoint in F; 
-humid is relative humidity;
-wind_dir, wind_speed, wind_gust are wind direction in degrees, spee and gust speed in mph;
-precip is precipitation in inches;
-pressure is sea level pressure in millibars;
-visib is visibility in miles;
-time_hour is date and hour of the recording as a POSIXct date; 
+There are 15 variables:\
+1. origin: weather station;\
+2. year, month, day, hour: time of recording;\
+3. temp, dewp: temperature and dewpoint in F;\
+4. humid: relative humidity;\
+5. wind_dir, wind_speed, wind_gust: wind direction in degrees, spee and gust speed in mph;\
+6. precip: precipitation in inches;\
+7. pressure: sea level pressure in millibars;\
+8. visib: visibility in miles;\
+9. time_hour: date and hour of the recording as a POSIXct date;\
 
-The number of rows are 358, and the number of columns are 15.
+The number of rows are 358, and the number of columns are 15.\
 The mean temperature is 39.58212F.
 
 ```{r}
 # make scatter plot of temp vs. time_hour
-ggplot(early_january_weather, 
-       aes(x = time_hour, y = temp, color = humid)) +
-  geom_point() +
-  labs(title = "scatterplot of temperature vs. time_hour",
-       x = "date and hour",
-       y = "temperature F")
+ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) +
+  geom_point() + labs(title = "scatterplot of temperature vs. time_hour",
+                      x = "date and hour", y = "temperature F")
 ```
-There is a pattern that humidity increases as temperature decreases. Temperature raises during daytime and drops during nighttime. 
+
+Patterns that are apparent in this plot:\
+Humidity tends to increase as temperature decreases. Temperature rises during the daytime and drops at night.
 
 ```{r}
 ggsave("P1 Scatter plot.png", plot = last_plot())
@@ -61,7 +60,7 @@ df <- tibble(vec_random = random_sample,
        vec_logical = random_sample > 0,
        vec_character = letters[1:10],
        vec_factor = factor(sample(c(1, 2, 3), size = 10, replace = TRUE)))
-
+df
 ```
 
 ```{r}
@@ -74,10 +73,13 @@ mean(pull(df, vec_character))
 # take mean of factor vector
 mean(pull(df, vec_factor))
 ```
+Means can be calculated for random samples and logical vectors, but not for character vectors and factor vectors.
 
-```{r}
+```{r, eval=FALSE}
+# apply as.numeric function to logical, character, and factor variables
 num_logic = as.numeric(pull(df, vec_logical))
 num_character = as.numeric(pull(df, vec_character))
 num_factor = as.numeric(pull(df, vec_factor))
 ```
-Using `as.numeric` function change the type of certain variable to numeric variables. For logical variables, True turns to 1 and False turns to 0. For character variables, they cannot be converted to numeric variables as there is a warning when `as.numeric` applied. For factor variables, levels can be converted to numbers corresponding to the order of the level. 
+Using `as.numeric` function change the type of certain variable to numeric variables. For logical variables, True turns to 1 and False turns to 0. For character variables, if the variables are not numbers (e.g. letters), they cannot be converted to numeric variables and there will be a warning when `as.numeric` applied. If the variables are numbers, (e.g. "1","2"), they can be converted to numeric variables. For factor variables, they can be converted to numeric variables corresponding to the order of the level.\
+This helps to explain why warning messages arise when `as.numeric` is not used before applying the mean() function to calculate the mean of a character or factor vector.
