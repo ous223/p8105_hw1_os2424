@@ -73,6 +73,7 @@ mean(pull(df, vec_character))
 # take mean of factor vector
 mean(pull(df, vec_factor))
 ```
+Mean of random samples is -0.07885155. Mean of logical vector is 0.4.\
 Means can be calculated for random samples and logical vectors, but not for character vectors and factor vectors.
 
 ```{r, eval=FALSE}
